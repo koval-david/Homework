@@ -7,7 +7,7 @@ Ts = 1/Fs;          %Time sampling
 T0 = 0;             %Start Time 0sec
 Tf = 20*10^(-9);    %End Time 20ns
 P = 30*(pi/180);    %Phase shift 30 degrees
-t = (T0:Ts:Tf);     %Time vector   (start:stepsize:stop)
+t = (T0:Ts:Tf-Ts);     %Time vector   (start:stepsize:stop)
 
 %Plot cosine waveform
 y = A*cos(2*pi*F*t+P);
@@ -22,7 +22,7 @@ L=length(y)
 power = sum(abs(y).^2)/length(y);
 
 %Plot Power Spectral Density
-S = (abs(fft(y))).^2;
+S = (fftshift(abs(fft(y))).^2)/(L^2);
 freq = [-L/2:1:L/2-1]*Fs/L;
 figure(2)
 plot(freq,S);
