@@ -13,8 +13,8 @@ m_t = cos(2*pi*fm*t);
 c_t = cos(2*pi*fc*t);
 s_t_1 = (m_t + K).*c_t;
 
-spec_s_t_1 = (abs(fft(s_t_1))).^2;
 L1=length(s_t_1);
+spec_s_t_1 = (fftshift(abs(fft(s_t_1))).^2)/(L1^2);
 freq1 = [-L1/2:1:L1/2-1]*fs/L1;
 figure(1);
 plot(freq1, spec_s_t_1);
@@ -37,7 +37,7 @@ ylabel('Amplitude (volts)');
 
 subplot(3, 1, 3);
 plot(t, s_t_1);
-title("Subplot 3: amplitude modulating (AM) signal s(t)=subplot 1 + subplot 4");
+title("Subplot 3: amplitude modulating (AM) signal s(t)=subplot 1 + subplot 2");
 xlabel('Time (s)');
 ylabel('Amplitude (volts)');
 
@@ -48,8 +48,8 @@ Kf = 2/(max(int_m_t));
 
 s_t_2 = A*cos(2*pi*fc*t + 2*pi*Kf*int_m_t);
 
-spec_s_t_2 = (abs(fft(s_t_2))).^2;
 L2=length(s_t_2);
+spec_s_t_2 = (fftshift(abs(fft(s_t_2))).^2)/(L2^2);
 freq2 = [-L2/2:1:L2/2-1]*fs/L2;
 figure(3);
 plot(freq2, spec_s_t_2);
